@@ -19,6 +19,7 @@ import io.atomix.cluster.Node;
 import io.atomix.cluster.discovery.BootstrapDiscoveryProvider;
 import io.atomix.cluster.discovery.DnsDiscoveryProvider;
 import io.atomix.cluster.discovery.NodeDiscoveryProvider;
+import io.atomix.cluster.protocol.PhiMembershipProtocol;
 import io.atomix.core.Atomix;
 import io.atomix.protocols.raft.partition.RaftPartitionGroup;
 import org.onosproject.cluster.ClusterMetadata;
@@ -103,7 +104,7 @@ public class AtomixManager {
                 .withPort(metadata.getLocalNode().tcpPort())
                 .withProperty("type", "onos")
                 .withMembershipProvider(discovery)
-                .withMembershipProtocol(HeartbeatMembershipProtocol.builder()
+                .withMembershipProtocol(PhiMembershipProtocol.builder()
                     .withHeartbeatInterval(Duration.ofMillis(250))
                     .build())
                 .build();
@@ -125,7 +126,7 @@ public class AtomixManager {
                 .withPort(metadata.getLocalNode().tcpPort())
                 .withProperty("type", "onos")
                 .withMembershipProvider(discovery)
-                .withMembershipProtocol(HeartbeatMembershipProtocol.builder()
+                .withMembershipProtocol(PhiMembershipProtocol.builder()
                     .withHeartbeatInterval(Duration.ofMillis(250))
                     .build())
                 .withManagementGroup(RaftPartitionGroup.builder("system")
