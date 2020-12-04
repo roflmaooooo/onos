@@ -103,6 +103,9 @@ public class AtomixManager {
                 .withPort(metadata.getLocalNode().tcpPort())
                 .withProperty("type", "onos")
                 .withMembershipProvider(discovery)
+		.withMembershipProtocol(HeartbeatMembershipProtocol.builder()
+                    .withHeartbeatInterval(Duration.ofMillis(250))
+		    .build())
                 .build();
         } else {
             log.warn("No storage nodes found in cluster metadata!");
@@ -122,6 +125,9 @@ public class AtomixManager {
                 .withPort(metadata.getLocalNode().tcpPort())
                 .withProperty("type", "onos")
                 .withMembershipProvider(discovery)
+		.withMembershipProtocol(HeartbeatMembershipProtocol.builder()
+                    .withHeartbeatInterval(Duration.ofMillis(250))
+		    .build())
                 .withManagementGroup(RaftPartitionGroup.builder("system")
                     .withNumPartitions(1)
                     .withDataDirectory(new File(LOCAL_DATA_DIR, "system"))
